@@ -1,13 +1,13 @@
 ### Motor Characterization
 
 | Parameter | Theoretical | Experimental | Error |
-|-----------|-------------|--------------|-------|
-| R (Ω) | 5.26 | 12.53 | 138% |
-| Kt (Nm/A) | 0.0352 | 0.0333 | 5.4% |
-| b (Nm·s/rad) | — | 4.434e-07 | — |
-| Kf (Nm) | — | 0.0008767 | — |
-| J (kg·m²) | 4.53e-6 | 4.307e-6 | 5.0% |
-| L (mH) | 3.30 | 5.32 | 61% |
+| :--- | :--- | :--- | :--- |
+| **R** (Ω) | 5.26 | 12.53 | 138% |
+| **Kt** (Nm/A) | 0.0352 | 0.0333 | 5.4% |
+| **b** (Nm·s/rad) | — | 4.434e-07 | — |
+| **Kf** (Nm) | — | 0.0008767 | — |
+| **J** (kg·m²) | 4.53e-6 | 4.307e-6 | 5.0% |
+| **L** (mH) | 3.30 | 5.32 | 61% |
 
 **Discussion:** Higher measured resistance likely due to contact resistance in the mechanical brake during parameter identification. Kt and J match well with datasheets, validating the identification method.
 
