@@ -1,0 +1,50 @@
+
+### 1. `motor_system_identification.slx`
+Implements the motor parameter identification experiments. Includes:
+- Input voltage sweep blocks
+- Current and velocity measurement acquisition
+- Torque calculation from current
+- Real-time data logging
+
+**Used for:** Extracting motor parameters (R, L, Kt, b, Kf, J)
+
+### 2. `cascaded_pi_velocity_control.slx`
+Implements the inner current loop and outer velocity loop with PI controllers.
+- Current PI controller with anti-windup
+- Velocity PI controller with feedforward
+- PWM H-bridge command generation
+- Load disturbance application block
+
+**Used for:** Validating velocity control under load disturbance
+
+### 3. `lead_controller_design.slx`
+Implements the complete cascaded architecture: current loop → velocity loop → lead position controller.
+- Inner loop: PI current control
+- Middle loop: PI velocity control with disturbance rejection
+- Outer loop: Lead compensator for position
+- Anti-windup logic to prevent saturation
+
+**Used for:** Final closed-loop position control
+
+### 4. `position_control_with_disturbance.slx`
+Extended version of the lead controller with motor-generator coupling for load disturbance testing.
+- Cascaded PI + lead control structure
+- Generator as load torque source
+- Position reference tracking
+- Disturbance rejection measurement
+
+**Used for:** Validating robust disturbance rejection
+
+### 5. `hil_closed_loop_validation.slx`
+Hardware-in-the-loop version configured for real-time execution on MF634 I/O board.
+- Real-time control blocks
+- Hardware I/O mapping
+- Anti-aliasing filters
+- Real-time data logging
+
+**Used for:** Physical hardware validation and final performance measurement
+
+## MATLAB Scripts
+
+### `motor_parameter_identification.m`
+Extracts motor parameters from experimental data collected via Simulink.
