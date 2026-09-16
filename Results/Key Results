@@ -1,0 +1,66 @@
+### Motor Characterization
+
+| Parameter | Theoretical | Experimental | Error |
+|-----------|-------------|--------------|-------|
+| R (Ω) | 5.26 | 12.53 | 138% |
+| Kt (Nm/A) | 0.0352 | 0.0333 | 5.4% |
+| b (Nm·s/rad) | — | 4.434e-07 | — |
+| Kf (Nm) | — | 0.0008767 | — |
+| J (kg·m²) | 4.53e-6 | 4.307e-6 | 5.0% |
+| L (mH) | 3.30 | 5.32 | 61% |
+
+**Discussion:** Higher measured resistance likely due to contact resistance in the mechanical brake during parameter identification. Kt and J match well with datasheets, validating the identification method.
+
+### Closed-Loop Performance
+
+**Velocity Control (PI):**
+- Rise time: ~0.5 seconds
+- Settling time: <1 second
+- Steady-state error: 0% (integral action)
+- Disturbance rejection: Load torque compensated within 200ms
+
+**Position Control (Lead + Cascaded PI):**
+- Settling time: **Sub-2 seconds** (to 2% band)
+- Steady-state error: **0%**
+- Overshoot: <10%
+- Anti-windup performance: No saturation-induced oscillations
+
+### Disturbance Rejection
+
+Applied motor-generator load torque disturbance:
+- Motor velocity recovered in <200ms
+- Position tracking maintained throughout disturbance
+- No integrator windup observed
+- Anti-windup algorithm effectively limited saturation
+
+## Design Methodology
+
+### Phase 1: System Identification
+1. Experimentally extracted motor parameters through bench testing
+2. Developed first-order and second-order transfer function models
+3. Validated models against open-loop step response
+4. Identified dominant poles and system bandwidth
+
+### Phase 2: Inner Loop Design (Current Control)
+1. Designed PI controller for fast current tracking
+2. Set inner loop bandwidth ~5x outer loop for separation
+3. Included anti-windup to prevent integrator saturation
+4. Validated against manufacturer current limits
+
+### Phase 3: Velocity Loop Design
+1. Tuned outer velocity PI controller for stable tracking
+2. Implemented load torque disturbance rejection
+3. Added feedforward for improved transient response
+4. Tested robustness to parameter variations
+
+### Phase 4: Position Loop Design (Lead Compensator)
+1. Analyzed uncompensated ball-and-beam transfer function
+2. Used root locus method to place compensator poles and zeros
+3. Designed lead network to add 45° phase margin
+4. Tuned gain for sub-2 second settling time requirement
+
+### Phase 5: Hardware Validation
+1. Configured Simulink models for real-time execution (MF634)
+2. Implemented anti-aliasing filters for analog I/O
+3. Tested closed-loop performance on physical hardware
+4. Validated disturbance rejection under realistic loading
